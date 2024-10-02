@@ -14,20 +14,48 @@
 
     <!--Below is a for-loop that is going to iterate through all of the data in 'company.json' file, down
         to the 'endfor', and inject the HTML and variables that is set within the loop.-->
+    
+    <!--Within the for-loop is an if-else statement that iterates through the loop index, depending if it 
+        can be divisible by 2, displays the data from the company.json file either the first html 
+        layout or the second.-->
 
     {% for member in company %}
 
+    
+
         <div class="row featurette">
-            <div class="col-md-7">
-                <h3>{{ member.name }}</h3>
-                <p>{{ member.description }}</p>
-            </div>
-            <div class="col-md-5"> 
-                <img src="{{ member.image_source }}" alt="" class="featurette-image image-responsive">
-            </div>
+
+            {% if loop.index % 2 != 0 %}
+            
+                <div class="col-md-7">
+                    <h3>{{ loop.index }}. {{ member.name }}</h3>
+                    <p>{{ member.description }}</p>
+                </div>
+                <div class="col-md-5"> 
+                    <img src="{{ member.image_source }}" alt="" class="featurette-image image-responsive">
+                </div>
+
+            {% else %}
+            
+                <div class="col-md-5"> 
+                    <img src="{{ member.image_source }}" alt="" class="featurette-image image-responsive">
+                </div>
+                <div class="col-md-7">
+                    <h3>{{ loop.index }}. {{ member.name }}</h3>
+                    <p>{{ member.description }}</p>
+                </div>
+
+            {% endif %}
+
         </div>
 
-        <hr class="featurette-divider">
+    <!--This if statement stops the divider line showing once it has reached the end of the data.-->    
+
+        {% if loop.index != loop.length %}
+
+            <hr class="featurette-divider">
+
+        {% endif %}
 
     {% endfor %}
 
